@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="jindal5.mayank.popular_movies_14ce10032_gsc.det_movFragment">
+
+    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_mov" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/dat_tit"
+        android:id="@+id/rel_date_mov"
+        android:layout_below="@+id/title_mov"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="73dp" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/pos_im"
+        android:layout_toEndOf="@+id/vid"
+        android:layout_below="@+id/rel_date_mov"
+        android:layout_toRightOf="@+id/vid"
+        android:contentDescription="@string/mov_image_tit" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rev_btn_tit"
+        android:id="@+id/rev"
+        android:background="#74ff6d"
+        android:layout_below="@+id/pos_im" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vid_btn_tit"
+        android:id="@+id/vid"
+        android:layout_below="@+id/rev"
+        android:background="#ff5674" />
+
+
+</RelativeLayout>

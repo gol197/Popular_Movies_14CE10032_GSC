@@ -15,11 +15,21 @@ public class ImageAdapter extends BaseAdapter {
     private String drawablePrefix;
     private Context mContext;
     private ArrayList<String> mThumbUris;
+    private ArrayList<String> mov_id_arr;
+    private ArrayList<String> mov_tit_arr;
 
     public ImageAdapter(Context c) {
         mContext = c;
         String packName=mContext.getPackageName();
         drawablePrefix="android.resource://" +packName+ "/";
+        ArrayList<String> mov_id_arr =new ArrayList<>();
+        ArrayList<String> mov_tit_arr=new ArrayList<>();
+        mov_tit_arr.add("asdf");
+        mov_tit_arr.add("asdf");
+        mov_tit_arr.add("asdf");
+        mov_tit_arr.add("asdf");
+        mov_tit_arr.add("asdf");
+        mov_tit_arr.add("asdf");
 
         ArrayList<String> uriPaths=new ArrayList<>();// place your drawables.
 
@@ -71,6 +81,12 @@ public class ImageAdapter extends BaseAdapter {
     }
     public ArrayList<String> getUriList(){
         return mThumbUris;
+    }
+    public ArrayList<String> getidlist(){
+        return mov_id_arr;
+    }
+    public ArrayList<String> gettitlist(){
+        return mov_tit_arr;
     }
 
     // references to our images

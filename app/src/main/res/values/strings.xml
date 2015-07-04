@@ -3,4 +3,15 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="refresh">Refresh</string>
+    <string name="title_activity_det_mov">det_mov</string>
+    <string name="title_activity_det_mov_rev">det_mov_rev</string>
+    <string name="pref_type_key">type_key</string>
+    <string name="type_title">Order</string>
+    <string name="default_val">popularity.desc</string>
+    <string name="title_activity_settings_activity">settings_activity</string>
+    <string name="vid_btn_tit">Play Video</string>
+    <string name="rev_btn_tit">Read Reviews</string>
+    <string name="over_tx_tit">Large Text</string>
+    <string name="mov_image_tit">movie image</string>
+    <string name="dat_tit">Large Text</string>
 </resources>
