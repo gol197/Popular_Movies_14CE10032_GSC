@@ -1,6 +1,8 @@
 package jindal5.mayank.popular_movies_14ce10032_gsc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,6 +50,9 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        imag_adap = new ImageAdapter(getActivity());
+        getimage imageTask = new getimage();
+        imageTask.execute("popularity.desc");
         // Add this line in order for this fragment to handle menu events.
         setHasOptionsMenu(true);
     }
@@ -56,6 +61,7 @@ public class MainActivityFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment, menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,8 +84,9 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
        View rootview = inflater.inflate(R.layout.fragment_main, container, false);
         GridView grid = (GridView) rootview.findViewById(R.id.gridView);
-        imag_adap = new ImageAdapter(getActivity());
+
         grid.setAdapter(imag_adap);
+
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -88,27 +95,26 @@ public class MainActivityFragment extends Fragment {
                 String[] url_for_pos = url1_arr.toArray(new String[url1_arr.size()]);
                 String[] over = url1_arr.toArray(new String[over_arr.size()]);
                 String[] id = id_arr.toArray(new String[over_arr.size()]);
-                Log.v("mayank",tit1[3]);
-                try{
+                // Log.v("mayank",tit1[3]);
+                try {
                     put_ext_tit = tit1[i];
                     rel_date_ext = rel_date[i];
                     url_for_pos_ex = url_for_pos[i];
                     over_ex = over[i];
-                    id_ex =id[i];
-                    Intent intent = new Intent(getActivity(),det_mov.class);
+                    id_ex = id[i];
+                    Intent intent = new Intent(getActivity(), det_mov.class);
                     //.putExtra(Intent.EXTRA_TEXT,put_ext_tit);
                     Bundle extras = new Bundle();
-                    extras.putString("title",put_ext_tit);
-                    extras.putString("rel_date",rel_date_ext);
-                    extras.putString("url_pos",url_for_pos_ex);
-                    extras.putString("over_ex",over_ex);
+                    extras.putString("title", put_ext_tit);
+                    extras.putString("rel_date", rel_date_ext);
+                    extras.putString("url_pos", url_for_pos_ex);
+                    extras.putString("over_ex", over_ex);
                     extras.putString("id_ex", id_ex);
-                    extras.putInt("posit",i);
+                    extras.putInt("posit", i);
                     intent.putExtras(extras);
                     startActivity(intent);
-                }
-                catch (ArrayIndexOutOfBoundsException p){
-                    Log.e("mayank","reg",p);
+                } catch (ArrayIndexOutOfBoundsException p) {
+                    Log.e("mayank", "reg", p);
                 }
             }
         });
@@ -116,7 +122,15 @@ public class MainActivityFragment extends Fragment {
         return rootview;
     }
 
+    //public void addEntry( String name, byte[] image) throws SQLiteException {
+      //  ContentValues cv = new  ContentValues();
+       // cv.put(,    name);
+        //cv.put(KEY_IMAGE,   image);
+        //database.insert( DB_TABLE, null, cv );
     public class getimage extends AsyncTask<String, String, String[]> {
+        ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+
         private final String LOG_TAG = getimage.class.getSimpleName();
         public int count;
         String[] pos_path;
@@ -156,11 +170,11 @@ public class MainActivityFragment extends Fragment {
                 if (buffer.length() == 0) {
                     return null;
                 }
-               movieJsonStr = buffer.toString();
+                movieJsonStr = buffer.toString();
 
                 JSONObject movieJson = new JSONObject(movieJsonStr);
                 JSONArray movieJsonarray = movieJson.getJSONArray("results");
-                 count = movieJsonarray.length();
+                count = movieJsonarray.length();
                 pos_path = new String[count];
                 mov_id = new String[count];
                 tit = new String[count];
@@ -177,10 +191,10 @@ public class MainActivityFragment extends Fragment {
                     String qw = "t";
                     String as = "p";
                     Uri.Builder url_build =  url_for_poster.scheme("http").authority("image.tmdb.org").appendPath(qw).appendPath(as).appendPath("w500").appendEncodedPath(pos_path[i]);
-                     url1[i] = url_build.toString();
+                    url1[i] = url_build.toString();
 
-                   // mov_id[i] =  sin_movie.getString("id");
-                   tit[i] = sin_movie.getString("title");
+                    // mov_id[i] =  sin_movie.getString("id");
+                    tit[i] = sin_movie.getString("title");
                     //rev[i] = sin_movie.getString("review");
                     rel_dat[i] = sin_movie.getString("release_date");
                     id[i] = sin_movie.getString("id");
@@ -205,11 +219,11 @@ public class MainActivityFragment extends Fragment {
                 }
             }
             return pos_path;
-            }
+        }
         @Override
         protected void onProgressUpdate(String... values) {
 
-                tit_arr.add(values[0]);
+            tit_arr.add(values[0]);
             rel_dat_arr.add(values[1]);
             url1_arr.add(values[2]);
             over_arr.add(values[3]);
@@ -221,31 +235,27 @@ public class MainActivityFragment extends Fragment {
 
             ArrayList<String> uriPaths = imag_adap.getUriList();
             uriPaths.clear();
-           // ImageView[] im_vi = new ImageView[count];
+            // ImageView[] im_vi = new ImageView[count];
 
             for(int j=0;j<count;j++) {
 
-               String  pos_sin_path = pos_path[j];
+                String  pos_sin_path = pos_path[j];
                 String id_mov = id[j];
                 Uri.Builder url_for_poster = new Uri.Builder();
                 Uri.Builder url_for_rev = new Uri.Builder();
                 String qw = "t";
                 String as = "p";
-              Uri.Builder url_build =  url_for_poster.scheme("http").authority("image.tmdb.org").appendPath(qw).appendPath(as).appendPath("w500").appendEncodedPath(pos_sin_path);
+                Uri.Builder url_build =  url_for_poster.scheme("http").authority("image.tmdb.org").appendPath(qw).appendPath(as).appendPath("w500").appendEncodedPath(pos_sin_path);
                 String url = url_build.toString();
                 Uri.Builder url_build_rev = url_for_rev.scheme("http").encodedAuthority("api.themoviedb.org/3/movie").appendPath(id_mov).appendPath("reviews");
-
-             // try {
-               //   String url_fin = URLEncoder.encode(url, "UTF-8");
-
-                  uriPaths.add(url);
-               // mov_title.add(tit[j]);
+                uriPaths.add(url);
+                // mov_title.add(tit[j]);
                 //mov_id_arr.add(id);
-             //   mov_tit_arr.add(title);
-             // }
-              //catch (UnsupportedEncodingException e){
+                //   mov_tit_arr.add(title);
+                // }
+                //catch (UnsupportedEncodingException e){
 
-              //}
+                //}
                 //url_build.clearQuery();
 
                 //Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg").into(im_vi[j]);
@@ -256,5 +266,8 @@ public class MainActivityFragment extends Fragment {
         }
     }
 }
+
+
+
 
 

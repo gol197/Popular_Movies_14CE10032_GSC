@@ -35,7 +35,7 @@ public class det_mov_revFragment extends Fragment {
              // String[]  revi_arr = revi.toArray(new String[revi.size()]);
                // Log.e("mayank1",revi_arr[1]);
               //  if (revi == null) {
-                Log.e("mayank1",revi_arr[1]);
+               // Log.e("mayank1",revi_arr[1]);
 
                    ArrayAdapter rev_lis_adapter = new ArrayAdapter<String>(getActivity(), R.layout.mov_rev_lis,R.id.mov_rev_lis_text,revi_arr);
                     ListView lis_rev = (ListView) rootview.findViewById(R.id.list_rev);

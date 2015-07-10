@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -38,6 +39,12 @@ public class det_movFragment extends Fragment {
     public ArrayList<String > url_for_utube = new ArrayList<String>();
 
     public det_movFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+      //  savedInstanceState.putString("title",put_ext_t);
     }
 
     @Override
@@ -69,12 +76,20 @@ public class det_movFragment extends Fragment {
                            protected void onPostExecute(Void avoid) {
                                super.onPostExecute(avoid);
                                String[] revi_arr = rev_arr.toArray(new String[rev_arr.size()]);
-                               // Log.e("mayank1",revi_arr[1]);
-                               Intent intent_rev = new Intent(getActivity(), det_mov_rev.class);
-                               Bundle ex_rev = new Bundle();
-                               ex_rev.putStringArrayList("rev_list", rev_arr);
-                               intent_rev.putExtras(ex_rev);
-                               startActivity(intent_rev);
+                               if(revi_arr.length==0) {
+                                   Toast toas = Toast.makeText(getActivity(),"NO REVIEW AVAILABLE FOR THIS MOVIE",Toast.LENGTH_LONG);
+                                       toas.show();
+
+
+                               }
+                               else {
+                                   Log.e("mayank1",revi_arr[0]);
+                                   Intent intent_rev = new Intent(getActivity(), det_mov_rev.class);
+                                   Bundle ex_rev = new Bundle();
+                                   ex_rev.putStringArrayList("rev_list", rev_arr);
+                                   intent_rev.putExtras(ex_rev);
+                                   startActivity(intent_rev);
+                               }
 
                            }
                        };
